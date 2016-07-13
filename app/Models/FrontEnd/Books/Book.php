@@ -14,6 +14,15 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     protected $table = 'books';
-    protected $fillable = ['author', 'genre','year','title'];
+    protected $fillable = [
+        'author',
+        'genre',
+        'year',
+        'title'
+    ];
     public $timestamps = false;
+
+    public function owner(){
+        return $this->belongsTo('\App\Models\FrontEnd\Users\BookUser');
+    }
 }
