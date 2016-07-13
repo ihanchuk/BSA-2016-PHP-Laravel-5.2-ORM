@@ -17,3 +17,8 @@ Route::get("/",function(){
 Route::resource("/users","BookUsersController");
 Route::resource("/books","BooksController");
 
+Route::get("/test",function(){
+    $x = new \App\Models\FrontEnd\Users\BookUser();
+    $res = $x->first();
+    dd($res->books->toArray());
+});

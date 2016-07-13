@@ -18,7 +18,8 @@ class Book extends Model
         'author',
         'genre',
         'year',
-        'title'
+        'title',
+        'book_user_id'
     ];
     public $timestamps = false;
 
