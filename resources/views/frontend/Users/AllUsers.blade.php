@@ -2,6 +2,16 @@
 
 @section('content')
     <h1>All users</h1><hr>
+    @if (session('dialog'))
+        <div class="alert alert-success">
+            {{ session('dialog') }}
+        </div>
+    @endif
+
+    <h2>Create new user</h2>
+    <a class="btn btn-default" href="{{action('BookUsersController@create')}}" role="button">Create new user</a>
+    <hr>
+    <h2>All existng users</h2>
     @foreach(array_chunk($users->getCollection()->all(),4) as $block)
         <div class="row">
             @foreach($block as $user)

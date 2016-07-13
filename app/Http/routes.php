@@ -11,5 +11,8 @@
 |
 */
 
+Route::get("/",function(){
+    print("hi");
+});
 Route::resource("/users","BookUsersController");
 

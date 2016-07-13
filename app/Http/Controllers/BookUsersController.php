@@ -40,7 +40,13 @@ class BookUsersController extends Controller
      */
     public function store(Request $request)
     {
-
+        $this->validate($request, [
+            'first_name'  => 'required',
+            'last_name'     => 'required',
+            'email'     => 'required|email',
+        ]);
+        BookUser::create($request->all());
+        return redirect()->action('BookUsersController@index')->with('dialog', 'User created');
     }
 
     /**
@@ -51,8 +57,7 @@ class BookUsersController extends Controller
      */
     public function show($id)
     {
-
-        return;
+        return "h1";
     }
 
     /**
@@ -78,12 +83,19 @@ class BookUsersController extends Controller
     public function update(Request $request, $id)
     {
         $user = BookUser::findOrFail($id);
+
+        $this->validate($request, [
+            'first_name'  => 'required',
+            'last_name'     => 'required',
+            'email'     => 'required|email',
+        ]);
+
         $user->first_name = $request->get("first_name");
         $user->last_name = $request->get("last_name");
         $user->email = $request->get("email");
         $user->save();
 
-        print(action('BookUsersController@destroy',113));
+        return redirect()->action('BookUsersController@index')->with('dialog', 'User saved');
     }
 
     /**
@@ -96,5 +108,7 @@ class BookUsersController extends Controller
     {
         $user = BookUser::findOrFail($id);
         $user->delete();
+
+        return redirect()->action('BookUsersController@index')->with('dialog', 'User deleted');
     }
 }
