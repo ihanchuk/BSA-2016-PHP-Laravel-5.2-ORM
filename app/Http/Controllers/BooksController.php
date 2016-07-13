@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FrontEnd\Books\Book;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Models\FrontEnd\Users\BookUser;
 
-class BookUsersController extends Controller
+class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class BookUsersController extends Controller
      */
     public function index()
     {
-        return view("frontend.Users.AllUsers")->with(
+        return view("frontend.Books.AllBooks")->with(
             [
-                "users"=>BookUser::paginate(10)
+                "books"=>Book::paginate(10)
             ]);
     }
 
@@ -29,7 +29,7 @@ class BookUsersController extends Controller
      */
     public function create()
     {
-        return view("frontend.Users.CreateUser");
+        return view("frontend.Books.CreateBook");
     }
 
     /**
@@ -41,12 +41,15 @@ class BookUsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'first_name'  => 'required|string',
-            'last_name'     => 'required|string',
-            'email'     => 'required|email',
+            'author'  => 'required|string',
+            'genre'     => 'required|string',
+            'year'     => 'required|Integer|Min:4',
+            'title'     => 'required',
         ]);
-        BookUser::create($request->all());
-        return redirect()->action('BookUsersController@index')->with('dialog', 'User created');
+
+        Book::create($request->all());
+
+        return redirect()->action('BooksController@index')->with('dialog', 'New book is created');
     }
 
     /**
@@ -57,7 +60,7 @@ class BookUsersController extends Controller
      */
     public function show($id)
     {
-        return "h1";
+        //
     }
 
     /**
@@ -68,8 +71,8 @@ class BookUsersController extends Controller
      */
     public function edit($id)
     {
-        return view("frontend.Users.UserEdit")->with([
-            "user"=>BookUser::findOrFail($id)
+        return view("frontend.Books.EditBook")->with([
+            "book"=>Book::findOrFail($id)
         ]);
     }
 
@@ -82,20 +85,23 @@ class BookUsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = BookUser::findOrFail($id);
+        $book = Book::findOrFail($id);
 
         $this->validate($request, [
-            'first_name'  => 'required|string',
-            'last_name'     => 'required|string',
-            'email'     => 'required|email',
+            'author'  => 'required|string',
+            'genre'     => 'required|string',
+            'year'     => 'required|Integer|Min:4',
+            'title'     => 'required',
         ]);
 
-        $user->first_name = $request->get("first_name");
-        $user->last_name = $request->get("last_name");
-        $user->email = $request->get("email");
-        $user->save();
+        $book->author = $request->get("author");
+        $book->genre = $request->get("genre");
+        $book->year = $request->get("year");
+        $book->title = $request->get("title");
 
-        return redirect()->action('BookUsersController@index')->with('dialog', 'User saved');
+        $book->save();
+
+        return redirect()->action('BookController@index')->with('dialog', 'Book saved');
     }
 
     /**
@@ -106,9 +112,6 @@ class BookUsersController extends Controller
      */
     public function destroy($id)
     {
-        $user = BookUser::findOrFail($id);
-        $user->delete();
-
-        return redirect()->action('BookUsersController@index')->with('dialog', 'User deleted');
+        //
     }
 }

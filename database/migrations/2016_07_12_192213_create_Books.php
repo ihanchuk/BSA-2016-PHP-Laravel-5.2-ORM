@@ -14,9 +14,12 @@ class CreateBooks extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->increments("id");
+            $table->integer("user_id")->nullable();
             $table->string("author");
             $table->string("genre");
             $table->smallInteger("year");
+            $table->string("title");
+            $table->foreign('user_id')->references('id')->on('books_users');
         });
     }
 

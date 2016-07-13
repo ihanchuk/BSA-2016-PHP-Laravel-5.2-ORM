@@ -15,4 +15,5 @@ Route::get("/",function(){
     print("hi");
 });
 Route::resource("/users","BookUsersController");
+Route::resource("/books","BooksController");
 

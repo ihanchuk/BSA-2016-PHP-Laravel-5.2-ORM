@@ -19,7 +19,8 @@ class BooksSeeder extends Seeder
             Book::create([
                 'author'=>$faker->firstName.','.$faker->lastName,
                 'year'=>$faker->year($max = 'now'),
-                'genre'=>$faker->sentence($nbWords = 6, $variableNbWords = true)
+                'genre'=>$faker->sentence($nbWords = 2, $variableNbWords = true),
+                'title'=>$faker->sentence($nbWords = 6, $variableNbWords = true)
             ]);
         }
     }
