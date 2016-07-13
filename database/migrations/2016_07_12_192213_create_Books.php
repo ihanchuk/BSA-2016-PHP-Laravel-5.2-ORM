@@ -14,10 +14,10 @@ class CreateBooks extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->increments("id");
-            $table->integer("user_id")->nullable();
+            $table->integer("user_id")->nullable()->unsigned();
             $table->string("author");
             $table->string("genre");
-            $table->smallInteger("year");
+            $table->smallInteger("year")->unsigned();
             $table->string("title");
             $table->foreign('user_id')->references('id')->on('books_users');
         });

@@ -8,10 +8,10 @@
         </div>
     @endif
 
-    @foreach(array_chunk($books->getCollection()->all(),4) as $block)
+    @foreach(array_chunk($books->getCollection()->all(),3) as $block)
         <div class="row">
             @foreach($block as $book)
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <h3>{{$book->title}}</h3>
                     <a class="btn btn-default" href="#" role="button">Users</a>
                     {{Form::open(['url' =>action('BooksController@destroy',$book->id), 'method' => 'delete'])}}
