@@ -7,18 +7,22 @@
             {{ session('dialog') }}
         </div>
     @endif
-
+    <div>
+        <h2>Add new book</h2>
+            <a href="{{action('BooksController@create')}}" class="btn btn-info btn-lg">Create new book</a>
+        </div>
+    <hr>
     @foreach(array_chunk($books->getCollection()->all(),3) as $block)
         <div class="row">
             @foreach($block as $book)
                 <div class="col-md-4">
                     <h3>{{$book->title}}</h3>
-                    <a class="btn btn-default" href="#" role="button">Users</a>
+                    <a class="btn btn-default " href="{{action('BooksController@show',$book->id)}}" role="button">Book profile</a>
+                     <a class="btn btn-default" href="{{action('BooksController@edit',$book->id)}}" role="button">Edit book</a>
                     {{Form::open(['url' =>action('BooksController@destroy',$book->id), 'method' => 'delete'])}}
                     {{Form::hidden("id",$book->id)}}
-                    {{Form::submit("delete book",['class' => 'btn btn-primary'])}}
+                    {{Form::submit("Delete book",['class' => 'btn btn-danger'])}}
                     {{Form::close()}}
-                    <a class="btn btn-default" href="{{action('BooksController@edit',$book->id)}}" role="button">Edit</a>
                 </div>
             @endforeach
         </div>

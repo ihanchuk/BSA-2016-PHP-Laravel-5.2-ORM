@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FrontEnd\Books\Book;
+use App\Models\FrontEnd\Users\BookUser;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -60,7 +61,19 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $user=null;
+        if(isset($book->book_user_id)){
+            $user = BookUser::find($book->book_user_id)->toArray();
+        }
+
+        $allUsers = BookUser::all();
+
+        return view("frontend.Books.showBooks")->with([
+            "book"=>$book,
+            "owner"=>$user,
+            "allUsers" =>$allUsers
+        ]);
     }
 
     /**
@@ -101,7 +114,7 @@ class BooksController extends Controller
 
         $book->save();
 
-        return redirect()->action('BookController@index')->with('dialog', 'Book saved');
+        return redirect()->action('BooksController@index')->with('dialog', 'Book saved');
     }
 
     /**
