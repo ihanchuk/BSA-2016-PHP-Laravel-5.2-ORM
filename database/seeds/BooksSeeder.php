@@ -15,12 +15,13 @@ class BooksSeeder extends Seeder
     {
         $faker =Faker\Factory::create();
 
-        foreach(range(1,100) as $i){
+        foreach(range(1,30) as $i){
             Book::create([
                 'author'=>$faker->firstName.','.$faker->lastName,
                 'year'=>$faker->year($max = 'now'),
                 'genre'=>$faker->sentence($nbWords = 2, $variableNbWords = true),
-                'title'=>$faker->sentence($nbWords = 6, $variableNbWords = true)
+                'title'=>$faker->sentence($nbWords = 6, $variableNbWords = true),
+                'book_user_id'=>mt_rand(1,30)
             ]);
         }
     }

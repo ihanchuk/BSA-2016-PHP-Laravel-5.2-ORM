@@ -17,6 +17,11 @@
             @foreach($block as $book)
                 <div class="col-md-4">
                     <h3>{{$book->title}}</h3>
+                    <ul>
+                        <li>Author:{{$book->author}}</li>
+                        <li>Year:{{$book->year}}</li>
+                        <li>Genre:{{$book->genre}}</li>
+                    </ul>
                     <a class="btn btn-default " href="{{action('BooksController@show',$book->id)}}" role="button">Book profile</a>
                      <a class="btn btn-default" href="{{action('BooksController@edit',$book->id)}}" role="button">Edit book</a>
                     {{Form::open(['url' =>action('BooksController@destroy',$book->id), 'method' => 'delete'])}}
