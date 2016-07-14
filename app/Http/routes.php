@@ -16,6 +16,7 @@ Route::get("/",function(){
 });
 Route::resource("/users","BookUsersController");
 Route::resource("/books","BooksController");
+Route::get("/editor/revoke/{id}","EditorController@revokeBook");
 
 Route::get("/test",function(){
     $x = new \App\Models\FrontEnd\Users\BookUser();

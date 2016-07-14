@@ -118,4 +118,5 @@ class BookUsersController extends Controller
 
         return redirect()->action('BookUsersController@index')->with('dialog', 'User deleted');
     }
+
 }

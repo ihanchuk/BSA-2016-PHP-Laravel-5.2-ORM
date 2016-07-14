@@ -4,13 +4,18 @@
 
     <h2>{{$user->first_name}},{{$user->last_name}} profile</h2>
     <hr>
-
+    @if (session('dialog'))
+        <div class="alert alert-success">
+            {{ session('dialog') }}
+        </div>
+    @endif
     <table class="table table-bordered">
         <thead>
         <tr>
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Email</th>
+            <th>Edit user:</th>
         </tr>
         </thead>
         <tbody>
@@ -18,6 +23,7 @@
             <td>{{$user->first_name}}</td>
             <td>{{$user->last_name}}</td>
             <td>{{$user->email}}</td>
+            <td><a class="btn btn-default" href="{{action('BookUsersController@edit',$user->id)}}" role="button">Edit {{$user->last_name}}</a></td>
         </tr>
         </tbody>
     </table>
@@ -44,7 +50,8 @@
                     <td>{{$book["year"]}}</td>
                     <td>{{$book["title"]}}</td>
                     <td>
-                        <a class="btn btn-default" href="{{action('BookUsersController@edit',$user->id)}}" role="button">Back to library</a>
+                        <a class="btn btn-default"
+                           href="{{action('EditorController@revokeBook',$book["id"],$user->id)}}" role="button">Back to library</a>
                     </td>
                 </tr>
                 @endforeach
