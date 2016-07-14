@@ -57,7 +57,14 @@ class BookUsersController extends Controller
      */
     public function show($id)
     {
-        return "h1";
+        $user = BookUser::findOrFail($id);
+        $books = $user->books->toArray();
+
+        return view("frontend.Users.UserShow")->with([
+            "user"=>$user,
+            "books"=>$books
+        ]);
+
     }
 
     /**

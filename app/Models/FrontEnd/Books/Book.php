@@ -24,6 +24,12 @@ class Book extends Model
     public $timestamps = false;
 
     public function owner(){
-        return $this->belongsTo('\App\Models\FrontEnd\Users\BookUser');
+        /*
+            Вопрос:
+            Почему тут мне приходится явно указывать колонку?
+            В случае с моделью BookUser мне не приходилось это делать.
+            В чем тут разница?
+        */
+        return $this->belongsTo('\App\Models\FrontEnd\Users\BookUser','id');
     }
 }

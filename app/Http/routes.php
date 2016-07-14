@@ -21,4 +21,8 @@ Route::get("/test",function(){
     $x = new \App\Models\FrontEnd\Users\BookUser();
     $res = $x->first();
     dd($res->books->toArray());
+
+//    $y = new \App\Models\FrontEnd\Books\Book();
+//    $res = $y->first();
+//   dd($res->owner->toArray());
 });
