@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\FrontEnd\Users\BookUser;
+use App\Models\FrontEnd\Books\Book;
 
 class BookUsersController extends Controller
 {
@@ -114,6 +115,14 @@ class BookUsersController extends Controller
     public function destroy($id)
     {
         $user = BookUser::findOrFail($id);
+        $userBooks = $user->books->toArray();
+
+        foreach($userBooks as $book){
+            $b  = Book::findOrFail($book["id"]);
+            $b->book_user_id = null;
+            $b->save();
+        }
+
         $user->delete();
 
         return redirect()->action('BookUsersController@index')->with('dialog', 'User deleted');
